@@ -4,14 +4,16 @@ import time
 import pyautogui as pag
 import pyperclip as ppc
 
-
+#classe principal
 class MoodleBot:
+    #configurar o navegador
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_argument('lang=pt-br')
         self.driver = webdriver.Chrome(
         executable_path=r'C:\Users\felip\Desktop\Bot_WhatsApp\chromedriver.exe')
 
+    #Realizar o login
     def login(self):
         username = self.driver.find_element_by_id("username")
         time.sleep(3)
@@ -20,6 +22,22 @@ class MoodleBot:
         password.send_keys('' + Keys.RETURN)
         time.sleep(5)
 
+    #Função que manda a disciplina
+    def subject(self):
+        subj_titles = ['"ET39H.2020_02 - Robotica - A81 (2020_02)"',
+        '"ET68B - Oficina de Integração 2 - A81 (2020_02)"',
+        '"ET67C - Modelagem e Controle de Sistemas Automatizados - A71 (2020_02)"']
+
+
+    #função que entra na disciplina
+
+    #Função que entra nos avisos
+
+    #Função que verifica se existem avisos não lidos
+
+    #Função que retorna o navegador para a pagina inicial do moodle
+
+    #controlar as ações - função principal
     def Navegar(self):
 
         self.driver.get("https://moodle.utfpr.edu.br/login/index.php")
