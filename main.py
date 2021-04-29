@@ -22,71 +22,60 @@ class MoodleBot:
         password.send_keys('' + Keys.RETURN)
         time.sleep(5)
 
-    #Função que manda a disciplina
-    def subject(self):
+    #Função que abre a disciplina
+    def subject_enter(self):
         subj_titles = ['"ET39H.2020_02 - Robotica - A81 (2020_02)"',
         '"ET68B - Oficina de Integração 2 - A81 (2020_02)"',
-        '"ET67C - Modelagem e Controle de Sistemas Automatizados - A71 (2020_02)"']
-
-
-    #função que entra na disciplina
-
-    #Função que entra nos avisos
-
-    #Função que verifica se existem avisos não lidos
-
-    #Função que retorna o navegador para a pagina inicial do moodle
-
-    #controlar as ações - função principal
-    def Navegar(self):
-
-        self.driver.get("https://moodle.utfpr.edu.br/login/index.php")
-        self.login()
-        time.sleep(6)
-        
-        subj_titles = '"ET39H.2020_02 - Robotica - A81 (2020_02)"'
-
-        course = self.driver.find_element_by_xpath(f'//*[@title={subj_titles}]')
-        course.click()
-        '''
+        '"ET67C - Modelagem e Controle de Sistemas Automatizados - A71 (2020_02)"',
+        '"IF68E - Sistemas Embarcados - A91 (2020_02)"',
+        '"ET51G - Circuitos Eletrônicos para Instrumentação - MEE11 (2021_01)"',
+        '"Comunidade Moodle UTFPR"']
+        for subj in subj_titles:
+            course = self.driver.find_element_by_xpath(f'//*[@title={subj}]')
+            course.click()
+            time.sleep(3)
+            self.verify_unread()
+        self.driver.quit()
+ 
+    #Função que verifica se existem avisos não lidos e se tiver, abre eles
+    def verify_unread(self):
         try:
             nlido = self.driver.find_element_by_class_name('unread')
         except:
             nlido = 0
-
-        if turn == True:
-            if nlido != 0:
-                nlido.click()
-                time.sleep(3)
-                try:
-                    msg = self.driver.find_element_by_xpath(
-                        '//*[@title="2 mensagens não lidas"]')
-                    msg.click()
-                except:
-                    print('Nenhuma mensagem não lida...')
-                turn = not turn
-
-        else:
-            if nlido != 0:
-                nlido.click()
-                time.sleep(3)
-                try:
-                    msg = self.driver.find_element_by_xpath(
-                        '//*[@title="1 mensagens não lidas"]')
-                    msg.click()
-                except:
-                        print('Nenhuma mensagem não lida...')
-                    turn = not turn
-
-        # <a href="https://moodle.utfpr.edu.br/my/">Painel</a>
+        
+        if nlido!=0:
+            nlido.click()
+            time.sleep(3)
+            try:
+                msg = self.driver.find_element_by_xpath(
+                    '//*[@title="2 mensagens não lidas"]')
+                msg.click()
+            except:
+                msg = self.driver.find_element_by_xpath(
+                    '//*[@title="1 mensagens não lidas"]')
+                msg.click()
         time.sleep(5)
-        self.driver.quit()
-        time.sleep(70)'''
-
+        self.inicial_page()
+        return 
+        #self.index = self.index + 1
     
 
+    #Função que retorna o navegador para a pagina inicial do moodle
+    def inicial_page(self):
+        self.driver.get("https://moodle.utfpr.edu.br/my/")
+        time.sleep(8)
+        return   
+
+    #controlar as ações - função principal
+    def control(self):
+        self.driver.get("https://moodle.utfpr.edu.br/login/index.php")
+        self.login()
+        time.sleep(6)
+        #self.index = 0
+        self.subject_enter()
 
 bot = MoodleBot()
-bot.Navegar()
-time.sleep(15)
+bot.control()
+
 
