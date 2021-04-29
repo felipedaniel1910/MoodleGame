@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import pyautogui as pag
 import pyperclip as ppc
+import login #arquivo que contém as senhas (username,password)
 
 #classe principal
 class MoodleBot:
@@ -17,9 +18,9 @@ class MoodleBot:
     def login(self):
         username = self.driver.find_element_by_id("username")
         time.sleep(3)
-        username.send_keys('') #CAMPO DE LOGIN
+        username.send_keys(login.username) #CAMPO DE LOGIN
         password = self.driver.find_element_by_id("password")
-        password.send_keys('' + Keys.RETURN) #CAMPO DE SENHA
+        password.send_keys(login.password + Keys.RETURN) #CAMPO DE SENHA
         time.sleep(5)
 
     #Função que abre a disciplina
