@@ -51,17 +51,16 @@ class MoodleBot:
             #self.driver.find_element_by_class_name('instancename').click()
         except:
             None
-        times = 0
-        while(times<5):
+
+        while(1):
             try:
                 nlido = self.driver.find_element_by_xpath('//*[@id="next-activity-link"]')
                 nlido.click()
                 time.sleep(3)
-                times = times + 1
             except:
                 self.inicial_page()
                 return 
-        return
+        #return
 
     #Função que retorna o navegador para a pagina inicial do moodle
     def inicial_page(self):
