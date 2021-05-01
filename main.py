@@ -9,6 +9,7 @@ import login #arquivo que contém as senhas (username,password)
 class MoodleBot:
     #configurar o navegador
     def __init__(self):
+        self.number_time = int(input("Quantas vezes deseja repetir o processo? "))
         options = webdriver.ChromeOptions()
         options.add_argument('lang=pt-br')
         self.driver = webdriver.Chrome(executable_path=r'chromedriver.exe')
@@ -30,17 +31,17 @@ class MoodleBot:
         time.sleep(5)
 
     #Função que abre a disciplina
-    def subject_enter(self):
-
-        for index in range(9,10):
-            try:
-                course = self.driver.find_element_by_xpath(f'//*[@id="label_3_1{index}"]')
-                course.click()
-                time.sleep(3)
-                self.verify_unread()
-            except: 
-                None
-    
+    def subject_enter(self):    
+        for i in range(0,self.number_time):
+            for index in range(9,10):
+                try:
+                    course = self.driver.find_element_by_xpath(f'//*[@id="label_3_1{index}"]')
+                    course.click()
+                    time.sleep(3)
+                    self.verify_unread()
+                except: 
+                    None
+                
         self.driver.quit()
  
     
@@ -59,6 +60,7 @@ class MoodleBot:
                 time.sleep(3)
             except:
                 self.inicial_page()
+                time.sleep(60)
                 return 
         #return
 
