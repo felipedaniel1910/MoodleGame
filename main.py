@@ -40,11 +40,9 @@ class MoodleBot:
                     time.sleep(3)
                     self.viewing_news()
                 except: 
-                    None
-                
+                    None         
         self.driver.quit()
- 
-    
+   
     #Função que verifica se existem avisos não lidos e se tiver, abre eles
     def viewing_news(self):
         try:
