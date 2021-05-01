@@ -15,7 +15,7 @@ class MoodleBot:
         self.driver = webdriver.Chrome(executable_path=r'chromedriver.exe')
 
     #controlar as ações - função principal
-    def control(self):
+    def central_command(self):
         self.driver.get("https://moodle.utfpr.edu.br/login/index.php")
         self.login()
         time.sleep(6)
@@ -33,12 +33,12 @@ class MoodleBot:
     #Função que abre a disciplina
     def subject_enter(self):    
         for i in range(0,self.number_time):
-            for index in range(9,10):
+            for index in range(9,10): #Possível aumentar disciplinas percorridas
                 try:
                     course = self.driver.find_element_by_xpath(f'//*[@id="label_3_1{index}"]')
                     course.click()
                     time.sleep(3)
-                    self.verify_unread()
+                    self.viewing_news()
                 except: 
                     None
                 
@@ -46,7 +46,7 @@ class MoodleBot:
  
     
     #Função que verifica se existem avisos não lidos e se tiver, abre eles
-    def verify_unread(self):
+    def viewing_news(self):
         try:
             self.driver.find_element_by_xpath(f'//*[@id="module-450482"]/div/div/div[2]/div/a/span').click()
             #self.driver.find_element_by_class_name('instancename').click()
@@ -71,6 +71,6 @@ class MoodleBot:
         return   
 
 bot = MoodleBot()
-bot.control()
+bot.central_command()
 
 
